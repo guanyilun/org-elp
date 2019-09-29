@@ -1,0 +1,2 @@
+* Org Equation Live Preview
+Preview equations in org mode while editing
