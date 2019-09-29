@@ -1,2 +1,3 @@
 * Org Equation Live Preview
 Preview equations in org mode while editing
+[[https://github.com/guanyilun/org-equation-live-preview/raw/master/data/org-equation-live-preview.gif]]
