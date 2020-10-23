@@ -38,7 +38,7 @@
 ;;; Code:
 
 (defvar org-equation-live-preview-buffer-name "*Equation Live*")
-(defvar org-equation-live-preview-split-size 30)
+(defvar org-equation-live-preview-split-size 20)
 (defvar org-equation-live-preview-idle-time 0.5)
 (defvar org-equation-live-preview--timer)
 (defvar org-equation-live-preview--org-buffer)
@@ -80,6 +80,14 @@
   (delete-other-windows)
   (message "Deactivating org-equation-live-preview")
   (cancel-function-timers 'org-equation-live-preview--preview))
+
+(define-minor-mode live-equation
+  "Toggle live-equation on or off."
+  :lighter nil
+  (if live-equation
+      (org-equation-live-preview--activate)
+    (org-equation-live-preview--deactivate)))
+(global-set-key (kbd "<f9>") 'live-equation)
 
 (provide 'org-equation-live-preview)
 ;; org-equation-live-preview ends here
