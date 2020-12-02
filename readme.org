@@ -1,3 +1,20 @@
-* Org Equation Live Preview
-Preview equations in org mode while editing
-[[https://github.com/guanyilun/org-equation-live-preview/raw/master/data/org-equation-live-preview.gif]]
+* org-elp
+  Short for: Org Equation Live Preview. It allows previewing the latex
+  fragment while typing. How it works is that it will generate a split
+  window and update the preview while typing.
+
+* Installation
+  Include the code in your =load-path= and then
+  #+begin_src elisp
+  (require 'org-elp)
+  #+end_src
+  A few things can be configured such as how large is the split, the
+  length of idle timer, etc. They can be found in =customize-group=.
+
+* How to run
+  In the org document that you want to use it, turn on the =org-elp= mode with =M-x org-elp=.
+  Running the same command again will turn it off. 
+
+* Screenshots
+  Preview equations in org mode while editing
+  [[https://github.com/guanyilun/org-equation-live-preview/raw/master/data/org-equation-live-preview.gif]]

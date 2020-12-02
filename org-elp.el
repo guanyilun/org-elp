@@ -1,7 +1,7 @@
 ;; org-elp.el 	-*- lexical-binding: t -*-
 
 ;; Author: Yilun Guan
-;; URL: https://github.com/guanyilun/org-equation-live-preview
+;; URL: https://github.com/guanyilun/org-elp
 
 ;; This file is not part of GNU Emacs.
 ;;
