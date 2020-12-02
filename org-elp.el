@@ -27,7 +27,7 @@
 ;; editing. Possible configurations:
 ;;
 ;; To adjust split size:
-;; (setq org-elp-split-size 20)
+;; (setq org-elp-split-size 30)
 ;;
 ;; To adjust buffer name
 ;; (setq org-elp-buffer-name "*Equation Live*")
@@ -37,7 +37,7 @@
 
 ;;; Code:
 
-;; (require 'posframe)
+;; (require 'posframe)  ;; not working
 
 (defgroup org-elp nil
   "org-z customizable variables."
@@ -49,7 +49,8 @@
   :group 'org-elp)
 
 (defcustom org-elp-split-size 30
-  "Split window size for displaying equation"
+  "Split window size for displaying equation, this number is the
+number of lines in the main text remaining after the split"
   :type  'integer
   :group 'org-elp)
 
@@ -73,7 +74,9 @@
                (erase-buffer) (insert (replace-regexp-in-string "\n$" "" text))
                (org-preview-latex-fragment)))))))
 
-;; FIXME: not working
+;; FIXME: not working, image not showing, otherwise it will be better
+;; than a split. There's also a problem with cursor jumping around with
+;; posframe which is a bit annoying.
 ;; (defun org-elp-preview-with-posframe ()
 ;;   ;; (posframe-hide-all)
 ;;   (org-elp-preview)
@@ -81,7 +84,6 @@
 ;;     (posframe-show org-elp-buffer-name)))
 
 (defun org-elp-preview-with-splits ()
-  ;; (posframe-hide-all)
   (org-elp-preview))
 
 (defun org-elp-open-buffer ()
@@ -103,16 +105,16 @@
 
 ;;;###autoload
 (defun org-elp-deactivate ()
-(interactive)
-(delete-other-windows)
-(message "Deactivating org-elp")
-(cancel-function-timers 'org-elp-preview-with-splits))
+  (interactive)
+  (delete-other-windows)
+  (message "Deactivating org-elp")
+  (cancel-function-timers 'org-elp-preview-with-splits))
 
 ;;;###autoload
 (define-minor-mode org-elp
-  "Toggle live-equation on or off."
+  "org-elp mode: display latex fragment while typing"
   :lighter " org-elp"
-  :group 'org-elp
+  :group   'org-elp
   :require 'org-elp
   (if org-elp
       (org-elp-activate)
