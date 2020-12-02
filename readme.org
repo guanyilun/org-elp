@@ -17,4 +17,4 @@
 
 * Screenshots
   Preview equations in org mode while editing
-  [[https://github.com/guanyilun/org-equation-live-preview/raw/master/data/org-equation-live-preview.gif]]
+  [[https://github.com/guanyilun/org-elp/raw/master/data/org-elp-demo.gif]]
