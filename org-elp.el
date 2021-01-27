@@ -29,8 +29,8 @@
 ;; Preview latex equations in org mode in a seperate buffer while
 ;; editing.  Possible configurations:
 ;;
-;; To adjust split size:
-;; (setq org-elp-split-size 30)
+;; To set the fraction of the window taken up by the previewing buffer
+;; (setq org-elp-split-fraction 0.2)
 ;;
 ;; To adjust buffer name
 ;; (setq org-elp-buffer-name "*Equation Live*")
@@ -54,9 +54,9 @@
   :type  'string
   :group 'org-elp)
 
-(defcustom org-elp-split-size 20
-  "Size of the main text after splitting in unit of lines."
-  :type  'integer
+(defcustom org-elp-split-fraction 0.2
+  "Fraction of the window taken up by the previewing buffer."
+  :type  'float
   :group 'org-elp)
 
 (defcustom org-elp-idle-time 0.5
@@ -82,9 +82,10 @@
                (erase-buffer) (insert (replace-regexp-in-string "\n$" "" text))
                (org-latex-preview)))))))
 
-(defun org-elp-open-buffer ()
+(defun org-elp--open-buffer ()
   "Open the preview buffer."
-  (split-window-vertically org-elp-split-size)
+  (split-window-vertically (floor (* (- 1 org-elp-split-fraction)
+                                     (window-height))))
   (other-window 1)
   (switch-to-buffer org-elp-buffer-name)
   (special-mode)
@@ -96,7 +97,7 @@
   (interactive)
   (message "Activating org-elp")
   (setq org-elp--preview-buffer (get-buffer-create org-elp-buffer-name))
-  (org-elp-open-buffer)
+  (org-elp--open-buffer)
   (setq org-elp--timer (run-with-idle-timer
                         org-elp-idle-time t #'org-elp--preview)))
 
