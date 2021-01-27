@@ -1,7 +1,10 @@
-;;; org-elp.el --- Preview latex equations in org mode while editing
+;;; org-elp.el --- Preview latex equations in org mode while editing -*- lexical-binding: t; -*-
 
 ;; Author: Yilun Guan
 ;; URL: https://github.com/guanyilun/org-elp
+;; Keywords: org, latex, preview
+;; Version: 0.1
+;; Package-Requires: ((emacs "27.1"))
 
 ;; This file is not part of GNU Emacs.
 ;;
@@ -34,10 +37,12 @@
 ;;
 ;; To adjust idle time to run latex preview
 ;; (setq org-elp-idle-time 0.5)
-
+;;
+;; Launch or deactivate the previewing with
+;; M-x org-elp-mode
+;;
 ;;; Code:
 
-;; (require 'posframe)  ;; not working
 
 (defgroup org-elp nil
   "org-elp customizable variables."
@@ -49,7 +54,7 @@
   :group 'org-elp)
 
 (defcustom org-elp-split-size 20
-  "Split window size for displaying equation, this number is the number of lines in the main text remaining after the split."
+  "Size of the main text after splitting in unit of lines."
   :type  'integer
   :group 'org-elp)
 
@@ -58,11 +63,13 @@
   :type  'float
   :group 'org-elp)
 
-(defvar org-elp--timer nil)
-(defvar org-elp--org-buffer nil)
-(defvar org-elp--preview-buffer nil)
+(defvar org-elp--timer nil
+  "A variable that keeps track of the idle timer.")
 
-(defun org-elp-preview ()
+(defvar org-elp--preview-buffer nil
+  "Buffer used for previewing equations.")
+
+(defun org-elp--preview ()
   "Preview the equation at point in buffer defined in `org-elp-buffer-name'."
   (let ((datum (org-element-context)))
     (and (memq (org-element-type datum) '(latex-environment latex-fragment))
@@ -84,32 +91,32 @@
 
 ;;;###autoload
 (defun org-elp-activate ()
-  "Activate previewing.  This launches the idle timer and preview equations after idle time defined in `org-elp-idle-time'."
+  "Activate previewing buffer and idle timer."
   (interactive)
   (message "Activating org-elp")
-  (setq org-elp--org-buffer (current-buffer)
-        org-elp--preview-buffer (get-buffer-create org-elp-buffer-name))
+  (setq org-elp--preview-buffer (get-buffer-create org-elp-buffer-name))
   (org-elp-open-buffer)
   (setq org-elp--timer (run-with-idle-timer
-                        org-elp-idle-time t 'org-elp-preview)))
+                        org-elp-idle-time t 'org-elp--preview)))
 
 ;;;###autoload
 (defun org-elp-deactivate ()
-  "Deactivate previewing.  This remove the idle timer."
+  "Deactivate previewing and remove the idle timer."
   (interactive)
   (delete-other-windows)
   (message "Deactivating org-elp")
-  (cancel-function-timers 'org-elp-preview))
+  (cancel-function-timers 'org-elp--preview))
 
 ;;;###autoload
-(define-minor-mode org-elp
+(define-minor-mode org-elp-mode
   "org-elp mode: display latex fragment while typing"
   :lighter " org-elp"
   :group   'org-elp
   :require 'org-elp
-  (if org-elp
+  (if org-elp-mode
       (org-elp-activate)
     (org-elp-deactivate)))
+
 
 (provide 'org-elp)
 ;;; org-elp ends here
