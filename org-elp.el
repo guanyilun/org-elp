@@ -2,7 +2,7 @@
 
 ;; Author: Yilun Guan
 ;; URL: https://github.com/guanyilun/org-elp
-;; Keywords: org, latex, preview
+;; Keywords: lisp, tex, org
 ;; Version: 0.1
 ;; Package-Requires: ((emacs "27.1"))
 
@@ -43,6 +43,7 @@
 ;;
 ;;; Code:
 
+(require 'org-element)
 
 (defgroup org-elp nil
   "org-elp customizable variables."
@@ -79,7 +80,7 @@
            (with-current-buffer org-elp--preview-buffer
              (let ((inhibit-read-only t))
                (erase-buffer) (insert (replace-regexp-in-string "\n$" "" text))
-               (org-preview-latex-fragment)))))))
+               (org-latex-preview)))))))
 
 (defun org-elp-open-buffer ()
   "Open the preview buffer."
@@ -97,7 +98,7 @@
   (setq org-elp--preview-buffer (get-buffer-create org-elp-buffer-name))
   (org-elp-open-buffer)
   (setq org-elp--timer (run-with-idle-timer
-                        org-elp-idle-time t 'org-elp--preview)))
+                        org-elp-idle-time t #'org-elp--preview)))
 
 ;;;###autoload
 (defun org-elp-deactivate ()
@@ -105,11 +106,11 @@
   (interactive)
   (delete-other-windows)
   (message "Deactivating org-elp")
-  (cancel-function-timers 'org-elp--preview))
+  (cancel-function-timers #'org-elp--preview))
 
 ;;;###autoload
 (define-minor-mode org-elp-mode
-  "org-elp mode: display latex fragment while typing"
+  "org-elp mode: display latex fragment while typing."
   :lighter " org-elp"
   :group   'org-elp
   :require 'org-elp
@@ -119,4 +120,4 @@
 
 
 (provide 'org-elp)
-;;; org-elp ends here
+;;; org-elp.el ends here
