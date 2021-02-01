@@ -1,20 +1,38 @@
 * org-elp
+  [[https://melpa.org/#/org-elp][file:https://melpa.org/packages/org-elp-badge.svg]]
+
   Short for: Org Equation Live Preview. It allows previewing the latex
   fragment while typing. How it works is that it will generate a split
   window and update the preview while typing.
 
 * Installation
-  Include the code in your =load-path= and then
+  =org-elp= is now on melpa. Install simply by =M-x package-install org-elp=.
   #+begin_src elisp
-  (require 'org-elp)
+
+* Usage
+  To set the fraction of the window taken up by the previewing buffer
+  #+begin_src elisp
+  (setq org-elp-split-fraction 0.2)
   #+end_src
-  A few things can be configured such as how large is the split, the
-  length of idle timer, etc. They can be found in =customize-group=.
+  To adjust buffer name
+  #+begin_src elisp
+  (setq org-elp-buffer-name "*Equation Live*")
+  #+end_src
+  To adjust idle time to run latex preview
+  #+begin_src elisp
+  (setq org-elp-idle-time 0.5)
+  #+end_src
+  These configurations can also be found They can be found in =M-x customize-group org-elp=
+
+  To Launch previewing, use =M-x org-elp-mode=, running the same command
+  again will deactivate it.
 
 * How to run
-  In the org document that you want to use it, turn on the =org-elp= mode with =M-x org-elp=.
-  Running the same command again will turn it off. 
+  In the org document that you want to use it, turn on the =org-elp= mode with =M-x org-elp-mode=.
+  Running the same command again will turn it off.
 
 * Screenshots
-  Preview equations in org mode while editing
+  Preview equations in org mode while editing.
   [[https://github.com/guanyilun/org-elp/raw/master/data/org-elp-demo.gif]]
+  (Note that I used =M-x org-elp= in the screenshot. It has been changed
+  to =M-x org-elp-mode= as the latest version.)
