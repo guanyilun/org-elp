@@ -9,6 +9,10 @@
   =org-elp= is now on melpa. Install simply by =M-x package-install org-elp=.
 
 * Usage
+  Load it with
+  #+begin_src elisp
+  (require 'org-elp)
+  #+end_src
   To set the fraction of the window taken up by the previewing buffer
   #+begin_src elisp
   (setq org-elp-split-fraction 0.2)
@@ -22,6 +26,14 @@
   (setq org-elp-idle-time 0.5)
   #+end_src
   These configurations can also be found in =M-x customize-group org-elp=.
+
+  An example configuration with =use-package=,
+  #+begin_src elisp
+    (use-package org-elp
+      :config
+      (setq org-elp-idle-time 0.5
+            org-elp-split-fraction 0.25))
+  #+end_src
 
   To Launch previewing, use =M-x org-elp-mode=, running the same command
   again will deactivate it.
