@@ -7,7 +7,6 @@
 
 * Installation
   =org-elp= is now on melpa. Install simply by =M-x package-install org-elp=.
-  #+begin_src elisp
 
 * Usage
   To set the fraction of the window taken up by the previewing buffer
@@ -22,17 +21,14 @@
   #+begin_src elisp
   (setq org-elp-idle-time 0.5)
   #+end_src
-  These configurations can also be found They can be found in =M-x customize-group org-elp=
+  These configurations can also be found They can be found in =M-x customize-group org-elp=.
 
   To Launch previewing, use =M-x org-elp-mode=, running the same command
   again will deactivate it.
 
-* How to run
-  In the org document that you want to use it, turn on the =org-elp= mode with =M-x org-elp-mode=.
-  Running the same command again will turn it off.
-
 * Screenshots
-  Preview equations in org mode while editing.
+  Preview equations in org mode while editing. (Note that I used =M-x
+  org-elp= in the screenshot. It has been changed to =M-x org-elp-mode=
+  in the latest version.)
+
   [[https://github.com/guanyilun/org-elp/raw/master/data/org-elp-demo.gif]]
-  (Note that I used =M-x org-elp= in the screenshot. It has been changed
-  to =M-x org-elp-mode= as the latest version.)
