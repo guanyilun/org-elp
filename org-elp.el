@@ -26,7 +26,7 @@
 
 ;;; Commentary:
 ;;
-;; Preview latex equations in org mode in a seperate buffer while
+;; Preview latex equations in org mode in a separate buffer while
 ;; editing.  Possible configurations:
 ;;
 ;; To set the fraction of the window taken up by the previewing buffer
