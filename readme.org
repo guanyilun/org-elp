@@ -21,7 +21,7 @@
   #+begin_src elisp
   (setq org-elp-idle-time 0.5)
   #+end_src
-  These configurations can also be found They can be found in =M-x customize-group org-elp=.
+  These configurations can also be found in =M-x customize-group org-elp=.
 
   To Launch previewing, use =M-x org-elp-mode=, running the same command
   again will deactivate it.
