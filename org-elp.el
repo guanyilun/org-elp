@@ -105,7 +105,8 @@
 (defun org-elp-deactivate ()
   "Deactivate previewing and remove the idle timer."
   (interactive)
-  (delete-other-windows)
+  (with-current-buffer org-elp--preview-buffer
+      (kill-buffer-and-window))
   (message "Deactivating org-elp")
   (cancel-function-timers #'org-elp--preview))
 
