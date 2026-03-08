@@ -88,7 +88,8 @@
                                      (window-height))))
   (other-window 1)
   (switch-to-buffer org-elp-buffer-name)
-  (special-mode)
+  (org-mode)
+  (read-only-mode 1)
   (other-window -1))
 
 ;;;###autoload
