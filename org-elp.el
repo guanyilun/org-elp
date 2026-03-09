@@ -153,8 +153,22 @@
           (setq org-elp--last-text nil
                 org-elp--element-end nil))))))
 
+(defun org-elp--strip-equation-numbers (text)
+  "Replace numbered LaTeX environments with their starred (unnumbered) variants."
+  (let ((envs '("equation" "align" "gather" "multline" "flalign" "alignat" "eqnarray")))
+    (dolist (env envs text)
+      (setq text (replace-regexp-in-string
+                  (format "\\begin{%s}" (regexp-quote env))
+                  (format "\\begin{%s*}" env)
+                  text))
+      (setq text (replace-regexp-in-string
+                  (format "\\end{%s}" (regexp-quote env))
+                  (format "\\end{%s*}" env)
+                  text)))))
+
 (defun org-elp--generate-image-async (text)
   "Generate LaTeX preview image from TEXT asynchronously with polling."
+  (setq text (org-elp--strip-equation-numbers text))
   ;; Cancel any existing poll timer
   (when org-elp--poll-timer
     (cancel-timer org-elp--poll-timer))
@@ -243,6 +257,7 @@
 
 (defun org-elp--show-in-buffer (text)
   "Show TEXT in the preview buffer."
+  (setq text (org-elp--strip-equation-numbers text))
   (with-current-buffer org-elp--preview-buffer
     (let ((inhibit-read-only t))
       (erase-buffer)
